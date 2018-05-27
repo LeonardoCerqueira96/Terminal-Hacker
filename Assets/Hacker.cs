@@ -8,14 +8,13 @@ public class Hacker : MonoBehaviour
 	// Use this for initialization
 	void Start() 
 	{
-        ShowMainMenu("Hello Nagi");
+        ShowMainMenu();
+        Terminal.WriteLine("Enter your selection: ");
     }
 
-    private void ShowMainMenu(string greeting)
+    private void ShowMainMenu()
     {
         Terminal.ClearScreen();
-
-        Terminal.WriteLine(greeting);
 
         Terminal.WriteLine("Welcome to the Anonymous entrance exam");
         Terminal.WriteLine("Select below your entrance level\n");
@@ -23,12 +22,27 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Press 1 for the Initiate level exam");
         Terminal.WriteLine("Press 2 for the Mid level exam");
         Terminal.WriteLine("Press 3 for the Expert level exam\n");
-
-        Terminal.WriteLine("Enter your selection: ");
     }
 
     private void OnUserInput(string input)
     {
-        Debug.Log("User typed " + input);
+        if (input == "menu")
+        {
+            ShowMainMenu();
+        }
+        else if (input == "420")
+        {
+            Terminal.WriteLine("You can do that later");
+        }
+        else if (input == "007")
+        {
+            Terminal.WriteLine("It's an honor, Mr. Bond");
+        }
+        else
+        {
+            Terminal.WriteLine("Please enter valid input");
+        }
+
+        Terminal.WriteLine("Enter your selection: ");
     }
 }

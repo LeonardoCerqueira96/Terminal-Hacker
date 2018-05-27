@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour 
 {
+    int level;
+
+    enum Screen { MainMenu, Password, Win }
+    Screen currentScreen = Screen.MainMenu;
 
 	// Use this for initialization
 	void Start() 
@@ -30,6 +34,21 @@ public class Hacker : MonoBehaviour
         {
             ShowMainMenu();
         }
+        else if (input == "1")
+        {
+            level = 1;
+            StartGame();
+        }
+        else if (input == "2")
+        {
+            level = 2;
+            StartGame();
+        }
+        else if (input == "3")
+        {
+            level = 3;
+            StartGame();
+        }
         else if (input == "420")
         {
             Terminal.WriteLine("You can do that later");
@@ -44,5 +63,11 @@ public class Hacker : MonoBehaviour
         }
 
         Terminal.WriteLine("Enter your selection: ");
+    }
+ 
+    private void StartGame()
+    {
+        currentScreen = Screen.Password;
+        Terminal.WriteLine("Level " + level + " loaded");
     }
 }

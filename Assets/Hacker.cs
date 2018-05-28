@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour 
 {
-
+    List<string> availableLevels = new List<string>{ "1", "2", "3" };
     string[] level1Passwords = { "covfefe", "grizzly", "jogging", "zombies", "pumpkin", "cubicle" };
     string[] level2Passwords = { "lumberjack", "chimpanzee", "pickpocket", "blitzkrieg", "technology", "apocalypse" };
     string[] level3Passwords = { "kindheartedness", "acknowledgeable", "procrastination", "differentiation", "consecutiveness", "approximatively" };
@@ -18,7 +18,6 @@ public class Hacker : MonoBehaviour
 	void Start() 
 	{
         ShowMainMenu();
-        Terminal.WriteLine("Enter your selection: ");
     }
 
     private void ShowMainMenu()
@@ -33,6 +32,8 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Press 1 for the Initiate level exam");
         Terminal.WriteLine("Press 2 for the Mid level exam");
         Terminal.WriteLine("Press 3 for the Expert level exam\n");
+
+        Terminal.WriteLine("Enter your selection: ");
     }
 
     private void OnUserInput(string input)
@@ -53,22 +54,9 @@ public class Hacker : MonoBehaviour
 
     private void RunMainMenu(string input)
     {
-        if (input == "1")
+        if (availableLevels.Contains(input))
         {
-            level = 1;
-            password = level1Passwords[Random.Range(0, level1Passwords.Length)];
-            StartGame();
-        }
-        else if (input == "2")
-        {
-            level = 2;
-            password = level2Passwords[Random.Range(0, level2Passwords.Length)];
-            StartGame();
-        }
-        else if (input == "3")
-        {
-            level = 3;
-            password = level3Passwords[Random.Range(0, level3Passwords.Length)];
+            level = int.Parse(input);
             StartGame();
         }
         else if (input == "420")
@@ -105,6 +93,22 @@ public class Hacker : MonoBehaviour
     private void StartGame()
     {
         currentScreen = Screen.Password;
+
+        switch(level)
+        {
+            case 1:
+                password = level1Passwords[Random.Range(0, level1Passwords.Length)];
+                break;
+            case 2:
+                password = level2Passwords[Random.Range(0, level2Passwords.Length)];
+                break;
+            case 3:
+                password = level3Passwords[Random.Range(0, level3Passwords.Length)];
+                break;
+            default:
+                Debug.LogError("Invalid level number");
+                break;
+        }
 
         Terminal.ClearScreen();
 

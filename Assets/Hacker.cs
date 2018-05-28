@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour 
 {
-    int level;
 
+    string[] level1Passwords = { "covfefe", "grizzly", "jogging", "zombies", "pumpkin", "cubicle" };
+    string[] level2Passwords = { "lumberjack", "chimpanzee", "pickpocket", "blitzkrieg", "technology", "apocalypse" };
+    string[] level3Passwords = { "kindheartedness", "acknowledgeable", "procrastination", "differentiation", "consecutiveness", "approximatively" };
+
+    int level;
     enum Screen { MainMenu, Password, Win }
     Screen currentScreen;
+    string password;
 
 	// Use this for initialization
 	void Start() 
@@ -40,6 +45,10 @@ public class Hacker : MonoBehaviour
         {
             RunMainMenu(input);
         }
+        else if (currentScreen == Screen.Password)
+        {
+            CheckPassword(input);
+        }
     }
 
     private void RunMainMenu(string input)
@@ -47,16 +56,19 @@ public class Hacker : MonoBehaviour
         if (input == "1")
         {
             level = 1;
+            password = level1Passwords[Random.Range(0, level1Passwords.Length)];
             StartGame();
         }
         else if (input == "2")
         {
             level = 2;
+            password = level2Passwords[Random.Range(0, level2Passwords.Length)];
             StartGame();
         }
         else if (input == "3")
         {
             level = 3;
+            password = level3Passwords[Random.Range(0, level3Passwords.Length)];
             StartGame();
         }
         else if (input == "420")
@@ -76,10 +88,26 @@ public class Hacker : MonoBehaviour
         }
     }
 
+    private void CheckPassword(string input)
+    {
+        if (input == password)
+        {
+            Terminal.WriteLine("Congratulations! You passed the exam!");
+            currentScreen = Screen.Win;
+        }
+        else
+        {
+            Terminal.WriteLine("Incorrect. Try again");
+            Terminal.WriteLine("Please enter your password:");
+        }
+    }
+
     private void StartGame()
     {
         currentScreen = Screen.Password;
-        Terminal.WriteLine("Level " + level + " loaded");
+
+        Terminal.ClearScreen();
+
         Terminal.WriteLine("Please enter your password:");
     }
 }

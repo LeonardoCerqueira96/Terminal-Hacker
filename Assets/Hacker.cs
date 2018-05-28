@@ -76,20 +76,6 @@ public class Hacker : MonoBehaviour
         }
     }
 
-    private void CheckPassword(string input)
-    {
-        if (input == password)
-        {
-            Terminal.WriteLine("Congratulations! You passed the exam!");
-            currentScreen = Screen.Win;
-        }
-        else
-        {
-            Terminal.WriteLine("Incorrect. Try again");
-            Terminal.WriteLine("Please enter your password:");
-        }
-    }
-
     private void StartGame()
     {
         currentScreen = Screen.Password;
@@ -112,6 +98,71 @@ public class Hacker : MonoBehaviour
 
         Terminal.ClearScreen();
 
-        Terminal.WriteLine("Please enter your password:");
+        Terminal.WriteLine("Enter your password, hint: " + password.Anagram());
+    }
+
+    private void CheckPassword(string input)
+    {
+        if (input == password)
+        {
+            DisplayWinScreen();
+        }
+        else
+        {
+            Terminal.WriteLine("Incorrect. Try again");
+            Terminal.WriteLine("Enter your password, hint: " + password.Anagram());
+        }
+    }
+
+    private void DisplayWinScreen()
+    {
+        currentScreen = Screen.Win;
+
+        Terminal.ClearScreen();
+        Terminal.WriteLine("Congratulations! You passed the exam!");
+        ShowLevelReward();
+    }
+
+    private void ShowLevelReward()
+    {
+        switch (level)
+        {
+            case 1:
+                Terminal.WriteLine(@"
+
+                Rookie
+        ─────█─▄▀█──█▀▄─█─────
+        ────▐▌──────────▐▌────
+        ────█▌▀▄──▄▄──▄▀▐█────
+        ───▐██──▀▀──▀▀──██▌───
+        ──▄████▄──▐▌──▄████▄──"               
+                );
+                break;
+            case 2:
+                Terminal.WriteLine(@"
+
+                Junior
+        ─────█─▄▀█──█▀▄─█─────
+        ────▐▌──────────▐▌────
+        ────█▌▀▄──▄▄──▄▀▐█────
+        ───▐██──▀▀──▀▀──██▌───
+        ──▄████▄──▐▌──▄████▄──"
+                );
+                break;
+            case 3:
+                Terminal.WriteLine(@"
+
+                Master
+        ─────█─▄▀█──█▀▄─█─────
+        ────▐▌──────────▐▌────
+        ────█▌▀▄──▄▄──▄▀▐█────
+        ───▐██──▀▀──▀▀──██▌───
+        ──▄████▄──▐▌──▄████▄──"
+                );
+                break;
+            default:
+                Debug.LogError("Invalid level number");
+                break;
+        }
     }
 }

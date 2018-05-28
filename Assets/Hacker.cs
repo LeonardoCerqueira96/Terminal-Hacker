@@ -7,7 +7,7 @@ public class Hacker : MonoBehaviour
     int level;
 
     enum Screen { MainMenu, Password, Win }
-    Screen currentScreen = Screen.MainMenu;
+    Screen currentScreen;
 
 	// Use this for initialization
 	void Start() 
@@ -18,6 +18,8 @@ public class Hacker : MonoBehaviour
 
     private void ShowMainMenu()
     {
+        currentScreen = Screen.MainMenu;
+
         Terminal.ClearScreen();
 
         Terminal.WriteLine("Welcome to the Anonymous entrance exam");
@@ -34,7 +36,15 @@ public class Hacker : MonoBehaviour
         {
             ShowMainMenu();
         }
-        else if (input == "1")
+        else if (currentScreen == Screen.MainMenu)
+        {
+            RunMainMenu(input);
+        }
+    }
+
+    private void RunMainMenu(string input)
+    {
+        if (input == "1")
         {
             level = 1;
             StartGame();
@@ -52,22 +62,24 @@ public class Hacker : MonoBehaviour
         else if (input == "420")
         {
             Terminal.WriteLine("You can do that later");
+            Terminal.WriteLine("Enter your selection: ");
         }
         else if (input == "007")
         {
             Terminal.WriteLine("It's an honor, Mr. Bond");
+            Terminal.WriteLine("Enter your selection: ");
         }
         else
         {
             Terminal.WriteLine("Please enter valid input");
+            Terminal.WriteLine("Enter your selection: ");
         }
-
-        Terminal.WriteLine("Enter your selection: ");
     }
- 
+
     private void StartGame()
     {
         currentScreen = Screen.Password;
         Terminal.WriteLine("Level " + level + " loaded");
+        Terminal.WriteLine("Please enter your password:");
     }
 }
